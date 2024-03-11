@@ -98,5 +98,4 @@ const maxLegth = computed(() => posts.value.length);
 </template>
 
 <style scoped></style>
-import { Button } from "bootstrap";, computedimport LoadingSpinnerVue from
-"./components/LoadingSpinner.vue";, onMounted
+
