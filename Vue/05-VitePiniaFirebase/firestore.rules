@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // Reglas para la colección de usuarios
+    match /users/{userId} {
+      // Solo los usuarios autenticados pueden leer y escribir en sus propios documentos
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Reglas para la colección de URLs
+    match /urls/{urlId} {
+      // Solo usuarios autenticados pueden leer, escribir, actualizar o borrar URLs
+      allow read, write: if request.auth != null;
+      allow create: if request.auth != null && request.resource.data.user == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.user == request.auth.uid;
+    }
+  }
+}
